@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Harta Trasee România</title>
-
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
     <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
-
     <style>
         body, html { margin: 0; padding: 0; height: 100%; width: 100%; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
         #map { position: absolute; top: 0; bottom: 0; left: 0; right: 0; z-index: 1; }
@@ -31,17 +28,9 @@
     </style>
 </head>
 <body>
-
 <div id="map"></div>
-<div class="info-panel">
-    <h3 style="margin:0; font-size:13px;">Plecare: Râmnicu Vâlcea</h3>
-    <div id="stats" style="color:#27ae60; font-weight:bold; font-size:12px; margin-top:5px;">Alege un traseu din listă</div>
-</div>
-<div id="sidebar">
-    <div id="sidebar-header"><h2>Trasee & Obiective România</h2></div>
-    <div id="route-list"></div>
-</div>
-
+<div class="info-panel"><h3 style="margin:0; font-size:13px;">Plecare: Râmnicu Vâlcea</h3><div id="stats" style="color:#27ae60; font-weight:bold; font-size:12px; margin-top:5px;">Alege un traseu</div></div>
+<div id="sidebar"><div id="sidebar-header"><h2>Trasee Moto România</h2></div><div id="route-list"></div></div>
 <script>
     var map = L.map('map', { tap: false }).setView([45.9432, 24.9668], 7);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { attribution: '&copy; OpenStreetMap' }).addTo(map);
@@ -54,7 +43,7 @@
         { name: "5. Transursoaia (DN1R)", coords: [46.5414, 22.8858], img: ["transursoaia1.jpg", "transursoaia2.jpg", "transursoaia3.jpg", "transursoaia4.jpg"], url: "https://lapasturistic.ro/transursoaia-o-superba-carare-prin-muntii-apuseni/" },
         { name: "6. Trans-Semenic (DJ582)", coords: [45.1852, 22.1234], img: ["transsemenic1.jpg", "transsemenic2.jpg", "transsemenic3.jpg"], url: "https://www.motoroute.ro/transsemenic/" },
         { name: "7. Transvâlcan (DJ664)", coords: [45.2975, 23.3142], img: ["transvalcan1.jpg", "transvalcan2.jpg", "transvalcan3.jpg", "transvalcan4.jpg"], url: "https://2ride.eu/segment/off67-transvalcan/" },
-        { name: "8. Trans-Ceahlău (DJ155F)", coords: [46.9634, 25.9622], img: ["ceahlau1.jpg", "ceahlau2.jpg", "ceahlau3.jpg"], url: "https://adevarul.ro/stil-de-viata/calatorii/axialul-drumul-de-poveste-din-ceahlau-serpuieste-2207421.html/" },
+        { name: "8. Trans-Ceahlău (DJ155F)", coords: [46.9634, 25.9622], img: ["Ceahlau1.jpg", "Ceahlau2.jpg", "Ceahlau3.jpg"], url: "https://adevarul.ro/stil-de-viata/calatorii/axialul-drumul-de-poveste-din-ceahlau-serpuieste-2207421.html" },
         { name: "9. Transluncani (DJ684)", coords: [45.7231, 22.3125], img: ["luncani.jpg"], url: "https://ro.wikipedia.org/wiki/DJ684" },
         { name: "10. Transalpina Apuseni", coords: [46.3156, 23.4123], img: ["apuseni.jpg"], url: "https://ro.wikipedia.org/wiki/DJ107I" },
         { name: "11. Trans-Cacel (DJ107P)", coords: [46.7231, 23.2345], img: ["cacel.jpg"], url: "https://ro.wikipedia.org/wiki/DJ107P" },
@@ -65,36 +54,17 @@
         { name: "16. Cheile Bicazului", coords: [46.8117, 25.7872], img: ["bicaz2.jpg"], url: "https://ro.wikipedia.org/wiki/Cheile_Bicazului" },
         { name: "17. Trans-Petrele", coords: [45.4212, 22.8845], img: ["petrele.jpg"], url: "https://www.retezat.ro/" },
         { name: "18. Trans Călimani", coords: [47.1231, 25.2123], img: ["calimani.jpg"], url: "https://ro.wikipedia.org/wiki/Mun%C8%9Bii_C%C4%83limani" },
-        { name: "19. Băile Herculane", coords: [44.8812, 22.4131], img: ["herculane1.jpg", "herculane2.jpg", "herculane3.jpg"], url: "https://herculaneproject.ro/despre-herculane/" }
+        { name: "19. Băile Herculane", coords: [44.8812, 22.4131], img: ["herculane1.jpg", "herculane2.jpg", "herculane3.jpg"], url: "https://herculaneproject.ro/despre-herculane" }
     ];
 
     var markers = [];
-
     trasee.forEach(function(t, i) {
-        var marker = L.marker(t.coords, {
-            icon: L.divIcon({
-                className: 'custom-dot',
-                html: '<div style="background:#e74c3c; width:12px; height:12px; border-radius:50%; border:2px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.3);"></div>',
-                iconSize: [12, 12], iconAnchor: [6, 6]
-            })
-        }).addTo(map);
-
+        var marker = L.marker(t.coords, { icon: L.divIcon({ className: 'custom-dot', html: '<div style="background:#e74c3c; width:12px; height:12px; border-radius:50%; border:2px solid white;"></div>', iconSize: [12, 12], iconAnchor: [6, 6] }) }).addTo(map);
         var galleryHtml = '';
-        var navHtml = '';
-        var uniqueId = 'gal-' + i;
-
-        t.img.forEach(function(src, idx) {
-            galleryHtml += `<img src="${src}" class="gallery-img ${idx===0?'active':''}" id="${uniqueId}-${idx}" onerror="this.src='https://via.placeholder.com/220x130?text=Imagine+Lipsa'">`;
-        });
-
-        if (t.img.length > 1) {
-            navHtml = `<button class="gallery-btn prev-btn" onclick="event.stopPropagation(); changeImg('${uniqueId}', -1, ${t.img.length})">&#10094;</button>
-                       <button class="gallery-btn next-btn" onclick="event.stopPropagation(); changeImg('${uniqueId}', 1, ${t.img.length})">&#10095;</button>`;
-        }
-
-        marker.bindPopup(`<div class="popup-container"><b style="font-size:14px">${t.name}</b><div class="gallery-container" id="${uniqueId}-cont">${galleryHtml}${navHtml}</div><a href="${t.url}" target="_blank" style="display:block;margin-bottom:8px;font-size:12px;color:#3498db;text-decoration:none;font-weight:bold;">🌍 Detalii Obiectiv</a><button class="btn-go" onclick="goRoute(${t.coords[0]}, ${t.coords[1]})">Setează Traseu</button></div>`);
+        t.img.forEach(function(src, idx) { galleryHtml += `<img src="${src}" class="gallery-img ${idx===0?'active':''}" id="gal-${i}-${idx}" onerror="this.src='https://via.placeholder.com/220x130?text=Imagine+Lipsa'">`; });
+        var nav = t.img.length > 1 ? `<button class="gallery-btn prev-btn" onclick="event.stopPropagation(); changeImg('gal-${i}', -1, ${t.img.length})">&#10094;</button><button class="gallery-btn next-btn" onclick="event.stopPropagation(); changeImg('gal-${i}', 1, ${t.img.length})">&#10095;</button>` : '';
+        marker.bindPopup(`<div class="popup-container"><b>${t.name}</b><div class="gallery-container" id="gal-${i}-cont">${galleryHtml}${nav}</div><a href="${t.url}" target="_blank" style="display:block;margin-bottom:8px;font-size:12px;color:#3498db;text-decoration:none;font-weight:bold;">🌍 Detalii</a><button class="btn-go" onclick="goRoute(${t.coords[0]}, ${t.coords[1]})">Setează Traseu</button></div>`);
         markers[i] = marker;
-
         var item = document.createElement('div');
         item.className = 'route-item';
         item.innerHTML = `<span>📍</span> ${t.name}`;
@@ -111,19 +81,10 @@
         document.getElementById(id + '-' + nextIdx).classList.add('active');
     }
 
-    var routeControl = L.Routing.control({
-        waypoints: [L.latLng(45.1063, 24.3673)],
-        lineOptions: { styles: [{ color: '#3498db', weight: 6, opacity: 0.8 }] },
-        addWaypoints: false, draggableWaypoints: false, createMarker: function() { return null; }
-    }).on('routesfound', function(e) {
-        var s = e.routes[0].summary;
-        document.getElementById('stats').innerHTML = "📏 " + (s.totalDistance / 1000).toFixed(1) + " km | ⏱️ " + Math.round(s.totalTime / 60) + " min";
-    }).addTo(map);
+    var routeControl = L.Routing.control({ waypoints: [L.latLng(45.1063, 24.3673)], lineOptions: { styles: [{ color: '#3498db', weight: 6, opacity: 0.8 }] }, addWaypoints: false, draggableWaypoints: false, createMarker: function() { return null; }
+    }).on('routesfound', function(e) { document.getElementById('stats').innerHTML = "📏 " + (e.routes[0].summary.totalDistance / 1000).toFixed(1) + " km"; }).addTo(map);
 
-    function goRoute(lat, lon) {
-        routeControl.setWaypoints([L.latLng(45.1063, 24.3673), L.latLng(lat, lon)]);
-        map.closePopup();
-    }
+    function goRoute(lat, lon) { routeControl.setWaypoints([L.latLng(45.1063, 24.3673), L.latLng(lat, lon)]); map.closePopup(); }
 </script>
 </body>
 </html>
